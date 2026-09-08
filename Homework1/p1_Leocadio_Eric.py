@@ -1,6 +1,5 @@
 #Problem 1: Quadratic Equations
 import math
-import numpy as np
 import matplotlib.pyplot as plt
 
 a = "blank"
@@ -33,13 +32,17 @@ while a != "":
         domain_max = max(x1, x2) + 5
         domain_min = min(x1, x2) - 5
 
-    #Making linspace for graph to be made
-    x = np.linspace(domain_min, domain_max, 150)
-    y = a*(x**2) + (b*x) + c
+    #Making graph variables
+    steps = (domain_max-domain_min)/149
+    xs = []
+    ys = []
+    for i in range (0,150): xs.append(domain_min + (i*steps))
+    for x in xs:
+        ys.append(a*(x**2) + (b*x) + c)
 
     #Make table
     plt.figure()
-    plt.plot(x, y)
+    plt.plot(xs, ys)
     plt.grid(True)
     plt.title("Quadratic Function Graph")
     plt.show()
