@@ -1,7 +1,5 @@
 #PROBLEM 3
 import csv
-sn = {}
-
 def add_user(sn, username, fullname):
     '''Adds a tuple (fullname, []) with an empty friends array into the dictionary sn with key username'''
     if username not in sn:
@@ -24,6 +22,7 @@ def get_friends(sn, user1, distance):
         friends = sn[user1][1].copy()
         if friends != []:
             dist = 1
+            #checked friends set saves time by caching already checked keys to not check them again
             checked_friends = set()
             while dist < distance:
                 newfriends = []
@@ -43,6 +42,7 @@ def save_network(filename, sn):
     try:
         with open(filename, "w") as outfile:
             writer = csv.writer(outfile)
+            #break apart each entry in dict sn
             for username, (full_name, friends) in sn.items():
                 writer.writerow([username, full_name] + friends)
     except IOError as err:
@@ -62,3 +62,26 @@ def load_network(filename):
     except IOError as err:
         print(f"An Error Occured! File {filename} not found")
         raise
+
+def main():
+    sn = {}
+    add_user(sn, "alice", 'Alice Smith')
+    add_user(sn, 'maria', 'Maria Cortez')
+    add_user(sn, 'joe', 'Joseph Adams')
+    add_user(sn, 'eve', 'Evelyn Cooper')
+    add_user(sn, 'david', 'David Benson')
+
+    add_friend(sn, 'alice', 'maria')
+    add_friend(sn, 'maria', 'joe')
+    add_friend(sn, 'maria', 'david')
+    add_friend(sn, 'joe', 'eve')
+
+    print(get_friends(sn, 'alice', 1))
+    print(get_friends(sn, 'alice', 2))
+
+    save_network('Homework2/network.csv', sn)
+    print(load_network('Homework2/network.csv'))
+    print("ERIC LEOCADIO Z23712790")
+
+if __name__ == "__main__":
+    main()
