@@ -69,7 +69,7 @@ def test_ed_replace():
     #test no replacement
     with open(test_file, 'w') as file:
         file.write('123454231')
-    testif(ed_replace(test_file, '12333', 'newlines',3)==1, "Test ed_replace none", "ed_replace success", "ed_replace, failed")
+    testif(ed_replace(test_file, '12333', 'newlines',3)==0, "Test ed_replace none", "ed_replace success", "ed_replace, failed")
     
     
 def test_ed_find():
